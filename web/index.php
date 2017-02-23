@@ -63,7 +63,7 @@
 			<div class="box-wrap">
 				<img class="roi-img" src="images/home/roi.png" alt="">
 				<p>Our wide range of expertise in the field of digital, all carefully integrated in the framework. Every project starts with a strategy.</p>
-				<div class="services-scroll scroll">
+				<div class="services-scroll">
 					<div class="card-wrapper">
 						<div class="card-wrap">
 							<ul>
