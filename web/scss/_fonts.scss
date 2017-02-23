@@ -1,0 +1,41 @@
+// include all imported fonts here even google fonts
+@charset 'utf-8';
+/** font face **/
+
+@font-face {
+    font-family: 'raleway';
+    src: url('../fonts/raleway-bold-webfont.woff2') format('woff2'),
+         url('../fonts/raleway-bold-webfont.woff') format('woff');
+    font-style: normal;
+    font-weight: 700;
+
+}
+
+@font-face {
+    font-family: 'raleway';
+    src: url('../fonts/raleway-light-webfont.woff2') format('woff2'),
+         url('../fonts/raleway-light-webfont.woff') format('woff');
+    font-style: normal;
+    font-weight: 300;
+
+}
+
+@font-face {
+    font-family: 'raleway';
+    src: url('../fonts/raleway-regular-webfont.woff2') format('woff2'),
+         url('../fonts/raleway-regular-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'museo';
+    src: url('../fonts/museosans_700-webfont.woff2') format('woff2'),
+         url('../fonts/museosans_700-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+
+}
+
+/** font face **/
