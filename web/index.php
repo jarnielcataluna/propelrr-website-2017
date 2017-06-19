@@ -52,8 +52,7 @@
 		<section class="sec-space">
 			<h4 class="sec-title text-gradient1">Featured Work</h4>
 			<div class="box-wrap">
-				<h2>We’ve Refined Digital To A Framework</h2>
-				<p>Our strategy at Propelrr is encompased in this framework. To ensure the success of your brand, all layers must be clearly defined. Success of our Customers is built around matching the right product digital experience and Markets operated in with this Propelrr Business Foundation.</p>
+				
 				<a href="#" class="btn-primary box-btn">LEARN MORE <i class="fa fa-angle-right" aria-hidden="true"></i></a>
 			</div>
 		</section>
