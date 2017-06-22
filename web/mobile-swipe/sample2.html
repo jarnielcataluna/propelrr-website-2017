@@ -1,0 +1,60 @@
+﻿<!doctype html>
+<html class="no-js" lang="">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>ProjectName | PageName</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="css/style.css" media="all"/>
+
+<!--[if lt IE 9]> <script src="js/css3-mediaqueries.js"></script> <![endif]-->
+<script src="js/html5.js"></script>
+<script src="js/lib/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+<section id="main-container">
+	<section id="main-wrapper">
+		<div class="swipe-wrapper" >
+			<div class="flex-wrap" id="slide-container">
+				<div id="scroller">
+					<div class="box-wrap"></div>
+					<div class="box-wrap"></div>
+					<div class="box-wrap"></div>
+					<div class="box-wrap"></div>
+					<div class="box-wrap"></div>
+					<div class="box-wrap"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+</section>
+<footer></footer>
+<script src="js/lib/jquery.min.js"></script>
+<script src="js/iscroll.js"></script>
+<script src="js/demoUtils.js"></script>
+<script type="text/javascript">
+	"use strict";
+	
+	var myScroll;
+	loaded();
+
+	function loaded () {
+		myScroll = new IScroll('#slide-container', {
+			scrollX: true,
+			scrollY: true,
+			momentum: false,
+			snap: '.box-wrap'
+		});
+	}
+
+	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, isPassive() ? {
+		capture: false,
+		passive: false
+	} : false);
+
+
+</script>
+</body>
+</html>

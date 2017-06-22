@@ -1,0 +1,297 @@
+﻿<!doctype html>
+<html class="no-js" lang="">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>ProjectName | PageName</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="css/style.css" media="all"/>
+
+<!--[if lt IE 9]> <script src="js/css3-mediaqueries.js"></script> <![endif]-->
+<script src="js/html5.js"></script>
+<script src="js/lib/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+<section id="main-container">
+	<section id="main-wrapper">
+		<div class="swipe-wrapper" >
+			<div class="flex-wrap" id="slide-container">
+				<div class="box-wrap"></div>
+				<div class="box-wrap"></div>
+				<div class="box-wrap">
+					<div class="box-2s"></div>
+					<div class="box-2s"></div>
+					<div class="box-2s"></div>
+				</div>
+				<div class="box-wrap"></div>
+				<div class="box-wrap"></div>
+				<div class="box-wrap"></div>
+			</div>
+		</div>
+	</section>
+</section>
+<footer></footer>
+<script src="js/lib/jquery.min.js"></script>
+<script src="js/TweenMax.js"></script>
+<script src="js/Draggable.js"></script>
+<!-- <script src="https://www.greensock.com/js/src/plugins/ThrowPropsPlugin.min.js"></script> -->
+<script type="text/javascript">
+	"use strict";
+	var wrapper = $("div#wrapper"),
+		dragText = $("div#dragText"),
+		slides = $(".box-wrap"),
+		dragTextTween = TweenMax.to(dragText, .25, {opacity:0, paused:true}),
+		count = 0,
+		limit = slides.length - 1,
+		snapping = false,
+		snapPoints = [],
+		//slides timelines vars
+		linesArrays = [],
+		allLinesComplete = false;//all the slides animations are completed
+
+	$("#slide-container").css('width', 305 * slides.length);
+
+	//add points to the snap array
+	for(var i = 0; i < slides.length; i++) {
+		snapPoints.push(-305 * i);
+		console.log(snapPoints);
+	}
+
+	var containerDraggable = Draggable.create($("#slide-container"),
+	{
+		type:'left',
+		throwProps:true,
+		maxDuration:1.25,
+		minDuration:.75,
+		edgeResistance:.8,
+		onDragStart:function()
+		{
+			dragTextTween.play();
+		},
+		onThrowComplete:function()
+		{
+			//we allow the snapping again
+			snapping = false;
+			startAnimations(count);
+			//if all the slides animations are completed show the drag indicator
+			if(allLinesComplete)
+			{
+				dragTextTween.reverse();
+			}
+		},
+		snap:
+		{
+			left:
+			function(endValue)
+			{
+				if(!snapping)
+				{
+					snapping = true;
+					//the las value to be used as a snap point
+					var lastEndValue = snapPoints[count];
+					//going forward
+					if(endValue <  lastEndValue + 560 && count < limit)
+					{
+						count++;
+					}
+					
+					if(endValue > lastEndValue - 560 && count > 0)
+					{
+						count--;
+					}
+				}
+				
+				return snapPoints[count];
+			}//function end
+		}//snap variable end
+	});//draggable end
+
+
+
+	/*
+	-------------------------------------------------------------
+			FIRST SLIDE ANIMATIONS
+	-------------------------------------------------------------
+	*/
+	var slideOneChildren = slides.eq(0).children('*'),//this selector is only for the child animations
+		slideLine0;
+
+	//we name it 0 to use the number of the index as reference to start the slides tweens
+	slideLine0 = new TimelineMax(
+	{
+		onStart:disableDrag,
+		onComplete:enableDrag,
+		paused:true
+	});
+
+
+	//add the tween instances to 
+	slideLine0.staggerFrom(slideOneChildren, 1, {left:1000, opacity:0, ease:Back.easeOut}, 1.5);
+
+	linesArrays.push(slideLine0);
+
+
+	/*
+	-------------------------------------------------------------
+			SECOND SLIDE ANIMATIONS
+	-------------------------------------------------------------
+	*/
+	var slideTwoDivs = slides.eq(1).children('div'),//this selector is only for the child animations
+		slideTwoImages = slides.eq(1).children('img'),
+		slideLine1;
+
+	slideLine1 = new TimelineMax(
+	{
+		onStart:disableDrag,
+		onComplete:enableDrag,
+		paused:true
+	});
+
+	slideLine1
+		.from(slideTwoDivs, 1, {height:0, opacity:0})
+		.staggerFrom(slideTwoImages, 1, {opacity:0}, .5, '+=.5');
+
+	linesArrays.push(slideLine1);
+
+
+	/*
+	-------------------------------------------------------------
+			THIRD SLIDE ANIMATIONS
+	-------------------------------------------------------------
+	*/
+	var slideThreeDivs = slides.eq(2).children('div'),//this selector is only for the child animations
+		slideThreeImages = slides.eq(2).children('img'),
+		slideLine2;
+
+	slideLine2 = new TimelineMax(
+	{
+		onStart:disableDrag,
+		onComplete:enableDrag,
+		paused:true
+	});
+
+	slideLine2
+		.staggerFrom(slideThreeDivs, 1, {top:'+=200', opacity:0, scale:2}, .5)
+		.staggerFrom(slideThreeImages, 1, {opacity:0}, .5, '+=.5');
+
+	linesArrays.push(slideLine2);
+
+
+	/*
+	-------------------------------------------------------------
+			FOURTH SLIDE ANIMATIONS
+	-------------------------------------------------------------
+	*/
+	var slideFourDivs = slides.eq(3).children('div'),//this selector is only for the child animations
+		slideFourImages = slides.eq(3).children('img'),
+		slideLine3;
+
+	slideLine3 = new TimelineMax(
+	{
+		onStart:disableDrag,
+		onComplete:enableDrag,
+		paused:true
+	});
+
+	slideLine3
+		.staggerFrom(slideFourDivs, 1, {rotation:720, opacity:0, scale:.1}, .5)
+		.staggerFrom(slideFourImages, 1, {opacity:0}, .5, '+=.5');
+
+	linesArrays.push(slideLine3);
+
+
+	/*
+	-------------------------------------------------------------
+			FIFTH SLIDE ANIMATIONS
+	-------------------------------------------------------------
+	*/
+	var slideFiveDivs = slides.eq(4).children('div'),//this selector is only for the child animations
+		slideFiveImages = slides.eq(4).children('img'),
+		slideLine4;
+
+	slideLine4 = new TimelineMax(
+	{
+		onStart:disableDrag,
+		onComplete:enableDrag,
+		paused:true
+	});
+
+	slideLine4
+		.from(slideFiveDivs, 1, {width:0, opacity:0})
+		.staggerFrom(slideFiveImages, 1, {opacity:0}, .5, '+=.5');
+
+	linesArrays.push(slideLine4);
+
+
+	/*
+	-------------------------------------------------------------
+			SIXTH SLIDE ANIMATIONS
+	-------------------------------------------------------------
+	*/
+	var slideSixDivs = slides.eq(5).children('div'),//this selector is only for the child animations
+		slideSixImages = slides.eq(5).children('img'),
+		slideLine5;
+
+	TweenMax.set(slideSixDivs, {top:'+=200'});
+
+	slideLine5 = new TimelineMax(
+	{
+		onStart:disableDrag,
+		onComplete:enableDrag,
+		paused:true
+	});
+
+	slideLine5
+		.staggerFrom(slideSixDivs, 1, {opacity:0}, 1);
+
+	linesArrays.push(slideLine5);
+
+
+	/*
+	-------------------------------------------------------------
+			FUNCTIONS TO ENABLE AND DISABLE DRAG
+	-------------------------------------------------------------
+	*/
+
+	function disableDrag()
+	{
+		containerDraggable[0].disable();
+	}
+
+	function enableDrag()
+	{
+		containerDraggable[0].enable();
+		dragTextTween.reverse();
+		//if all slides animations are completed the drag indicator animation control goes to the throw complete event
+		if(count == limit)
+		{
+			allLinesComplete = true;
+		}
+	}
+
+
+
+	/*
+	-------------------------------------------------------------
+			FUNCTIONS TO START THE ANIMATIONS
+	-------------------------------------------------------------
+	*/
+	function startAnimations(slideIndex)
+	{
+		var targetLine = linesArrays[slideIndex];
+		//console.log(targetLine);
+		targetLine.play();
+	}
+
+	//since the first slide is visible we start playing it
+	startAnimations(count);
+
+	//hide the drag text indicator
+	dragTextTween.seek(.25);
+
+
+</script>
+</body>
+</html>
